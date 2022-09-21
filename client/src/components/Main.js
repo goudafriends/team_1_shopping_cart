@@ -1,43 +1,19 @@
-import Product from "./Product";
+import { useState, useEffect} from "react";
+import AddForm from "./AddForm";
+import ProductListing from "./ProductListing";
 import data from '../mockData/data';
 
 const Main = () => {
-   return (
+  const [ products, setProducts ] = useState([]);
+
+  useEffect(() => { // initial loading of list of products
+    setProducts(data);
+  }, []);
+  
+  return (
     <main>
-      <div className="product-listing">
-        <h2>Products</h2>
-
-        {/* provide list of products and map over them */}
-        {data.map(product => {
-          return <Product key={product.id} {...product} />
-        })}
-      </div>
-
-      <div className="add-form">
-        <p><a className="button add-product-button">Add A Product</a></p>
-        <h3>Add Product</h3>
-        <form>
-          <div className="input-group">
-            <label for="product-name">Product Name</label>
-            <input type="text" id="product-name" value="" />
-          </div>
-
-          <div className="input-group">
-            <label for="product-price">Price</label>
-            <input type="text" id="product-price" value="" />
-          </div>
-
-          <div className="input-group">
-            <label for="product-quantity">Quantity</label>
-            <input type="text" id="product-quantity" value="" />
-          </div>
-
-          <div className="actions form-actions">
-            <a className="button">Add</a>
-            <a className="button">Cancel</a>
-          </div>
-        </form>
-      </div>
+      <ProductListing products={products} setProducts={setProducts}/>
+      <AddForm products= {products} setProducts={setProducts}/>
     </main>
    ) 
 }
