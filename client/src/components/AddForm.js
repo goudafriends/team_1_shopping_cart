@@ -20,7 +20,7 @@ const AddForm = ({ setProducts }) => {
 
   return (
     <div className={`add-form ${visible}`}>
-      <p><a class="button add-product-button" onClick={showForm}>Add A Product</a></p>
+      <p><a className="button add-product-button" onClick={showForm}>Add A Product</a></p>
       <h3>Add Product</h3>
       
 
@@ -41,8 +41,8 @@ const AddForm = ({ setProducts }) => {
         </div>
 
         <div className="actions form-actions">
-        <a class="button">Add</a>
-            <a class="button" onClick={hideForm}>Cancel</a>
+          <a className="button">Add</a>
+          <a className="button" onClick={hideForm}>Cancel</a>
         </div>
       </form>
     </div>

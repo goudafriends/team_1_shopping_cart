@@ -1,13 +1,18 @@
 import { useState } from "react";
 import EditForm from "./EditForm";
+import ProductActions from "./ProductActions.js"
 
 const Product = ({ title, quantity, price, id }) => { // we may or may not need an id
-const [ isEdit, setIsEdit ] = useState(false);
+  const [ isEdit, setIsEdit ] = useState(false);
 
-  const handleClick = (e) => {
+  const toggleForm = (e) => {
     e.preventDefault();
-    setIsEdit(!isEdit)  } 
-  console.log(title, id)
+    setIsEdit(!isEdit);
+  } 
+
+  const handleAdd = (e) => {
+    e.preventDefault();
+  }
 
   return (
     <div className="product">
@@ -15,15 +20,11 @@ const [ isEdit, setIsEdit ] = useState(false);
         <h3>{title}</h3>
         <p className="price">${price}</p>
         <p className="quantity">{quantity} left in stock</p>
-        { isEdit ? <EditForm id={id} title={title} quantity={quantity} price={price}/> : null }
-        <div className="actions product-actions">
-        <a class="button add-to-cart">Add to Cart</a>
-          <a class="button edit" onClick={handleClick}>Edit</a>
-        </div>
+        { isEdit ? 
+          <EditForm handleCancel={toggleForm} id={id} title={title} quantity={quantity} price={price}/> : 
+          <ProductActions handleAdd={handleAdd} handleEdit={toggleForm}/> }
         <a className="delete-button"><span>X</span></a>
-        
       </div>
-      
     </div>
   )
 }

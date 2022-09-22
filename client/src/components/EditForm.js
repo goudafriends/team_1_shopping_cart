@@ -1,6 +1,4 @@
-
-const EditForm = ({ id, title, quantity, price }) => {
-  console.log(id, title)
+const EditForm = ({ handleCancel, id, title, quantity, price }) => {
   return (
     <div className="edit-form">
       <h3>Edit Product</h3>
@@ -22,7 +20,7 @@ const EditForm = ({ id, title, quantity, price }) => {
 
         <div className="actions form-actions">
           <a class="button">Update</a>
-          <a class="button">Cancel</a>
+          <a class="button" onClick={handleCancel}>Cancel</a>
         </div>
       </form>
     </div>
