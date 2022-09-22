@@ -2,12 +2,11 @@ import { useState } from "react";
 import EditForm from "./EditForm";
 
 const Product = ({ title, quantity, price, id }) => { // we may or may not need an id
-  [ isEdit, setIsEdit ] = useState(false);
+const [ isEdit, setIsEdit ] = useState(false);
 
   const handleClick = (e) => {
     e.preventDefault();
-    setIsEdit(!isEdit)
-  } 
+    setIsEdit(!isEdit)  } 
   console.log(title, id)
 
   return (

@@ -3,7 +3,7 @@ import { useState, useEffect} from "react";
 const AddForm = ({ setProducts }) => {
   const [ visible, setVisible ] = useState("");
 
-  let handleSubmit = () => {
+  const handleSubmit = () => {
     // need to save new product to existing list of products
   }
 
