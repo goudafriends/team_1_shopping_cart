@@ -34,14 +34,39 @@ const Main = () => {
       if (callback) {
         callback();
       }
-    } catch (e) {
-      console.log("GET YOUR PIZZA, YOUVE ERRORED")
+    } catch (error) {
+      console.log("GET YOUR PIZZA, YOUVE ERRORED");
     }
+  }
+
+  const putProduct = async (id, product, callback) => {
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      }, 
+      body: JSON.stringify(product), 
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5001/api/products/${id}`, options);
+      const updatedProduct = await response.json();
+      setProducts(
+        products.map(product => id === product._id ? updatedProduct : product)
+      )
+      if (callback) {
+        callback();
+      } 
+    } catch (error) {
+      console.log(error);
+      console.log("GET YOUR PIZZA, YOUVE ERRORED");
+    }
+    
   }
   
   return (
     <main>
-      <ProductListing products={products} setProducts={setProducts}/>
+      <ProductListing products={products} setProducts={setProducts} onUpdate={putProduct} />
       <AddForm onSubmit={postNewProduct} />
     </main>
    ) 

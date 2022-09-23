@@ -1,31 +1,22 @@
-const EditForm = ({ handleCancel, id, title, quantity, price }) => {
+import Form from "./Form";
+
+const EditForm = ({ handleCancel, submitUpdate, id, title, quantity, price }) => {
+    
+  const handleEdit = async (updatedProduct) => {
+    try {
+      await submitUpdate(id, updatedProduct); // send post request, update products
+    } catch (error) {
+      console.log(error);
+      alert("Try again later.")
+    }
+  } 
+
   return (
     <div className="edit-form">
       <h3>Edit Product</h3>
-      <form>
-        <div className="input-group">
-          <label for="product-name">Product Name</label>
-          <input type="text" id="product-name" value={title}/>
-        </div>
-
-        <div className="input-group">
-          <label for="product-price">Price</label>
-          <input type="text" id="product-price" value={price}/>
-        </div>
-
-        <div className="input-group">
-          <label for="product-quantity">Quantity</label>
-          <input type="text" id="product-quantity" value={quantity}/>
-        </div>
-
-        <div className="actions form-actions">
-          <a class="button">Update</a>
-          <a class="button" onClick={handleCancel}>Cancel</a>
-        </div>
-      </form>
+      <Form submitter={handleEdit} onCancel={handleCancel} product={{title, quantity, price}} submitButtonLabel="Edit" />
     </div>
   )
 }
-
 
 export default EditForm;

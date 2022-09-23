@@ -2,16 +2,19 @@ import { useState } from "react";
 import EditForm from "./EditForm";
 import ProductActions from "./ProductActions.js"
 
-const Product = ({ title, quantity, price, id }) => { // we may or may not need an id
-  const [ isEdit, setIsEdit ] = useState(false);
+const Product = ({ onUpdate, title, quantity, price, _id }) => {
+  const [ isEdit, setIsEdit ] = useState(false); // determine if edit form needs to be displayed
 
-  const toggleForm = (e) => {
-    e.preventDefault();
+  const toggleForm = () => {
     setIsEdit(!isEdit);
   } 
 
   const handleAdd = (e) => {
     e.preventDefault();
+  }
+
+  const handleUpdate = (id, product) => {
+    onUpdate(id, product, toggleForm);
   }
 
   return (
@@ -21,7 +24,7 @@ const Product = ({ title, quantity, price, id }) => { // we may or may not need 
         <p className="price">${price}</p>
         <p className="quantity">{quantity} left in stock</p>
         { isEdit ? 
-          <EditForm handleCancel={toggleForm} id={id} title={title} quantity={quantity} price={price}/> : 
+          <EditForm handleCancel={toggleForm} id={_id} title={title} quantity={quantity} price={price} submitUpdate={handleUpdate}/> : 
           <ProductActions handleAdd={handleAdd} handleEdit={toggleForm}/> }
         <a className="delete-button"><span>X</span></a>
       </div>
