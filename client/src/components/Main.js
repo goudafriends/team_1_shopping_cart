@@ -7,36 +7,44 @@ const Main = () => {
   const [ products, setProducts ] = useState([]);
 
   useEffect(() => { // initial loading of list of products
-    // fetch from api
-      // fetching is async and useEffect callback cannot be async
-      // define async function to call within useEffect callback
-    // set products state
-
     const fetchProducts = async () => {      
       try {
         const response = await fetch('http://localhost:5001/api/products');
-        setProducts(await response.json())
+        setProducts(await response.json());
       } catch(error) {
         console.log(error);
       }
     }
-    
-    fetchProducts();
 
-    // setProducts(products);
+    fetchProducts();
   }, []);
+
+  const postNewProduct = async (newProduct, callback) => {
+    const options = {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newProduct),
+    }
+
+    try {
+      const response = await fetch('http://localhost:5001/api/products', options);
+      setProducts(products.concat(await response.json()));
+      if (callback) {
+        callback();
+      }
+    } catch (e) {
+      console.log("GET YOUR PIZZA, YOUVE ERRORED")
+    }
+  }
   
   return (
     <main>
       <ProductListing products={products} setProducts={setProducts}/>
-      <AddForm products= {products} setProducts={setProducts}/>
+      <AddForm onSubmit={postNewProduct} />
     </main>
    ) 
 }
 
 export default Main;
-
-
-// fetch('http://example.com/movies.json')
-//   .then((response) => response.json()) // response = await fetch(requestURL) 
-//   .then((data) => console.log(data));  //

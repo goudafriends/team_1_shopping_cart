@@ -27363,10 +27363,6 @@ const Main = ()=>{
     _s();
     const [products, setProducts] = (0, _react.useState)([]);
     (0, _react.useEffect)(()=>{
-        // fetch from api
-        // fetching is async and useEffect callback cannot be async
-        // define async function to call within useEffect callback
-        // set products state
         const fetchProducts = async ()=>{
             try {
                 const response = await fetch("http://localhost:5001/api/products");
@@ -27376,8 +27372,23 @@ const Main = ()=>{
             }
         };
         fetchProducts();
-    // setProducts(products);
     }, []);
+    const postNewProduct = async (newProduct, callback)=>{
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newProduct)
+        };
+        try {
+            const response = await fetch("http://localhost:5001/api/products", options);
+            setProducts(products.concat(await response.json()));
+            if (callback) callback();
+        } catch (e) {
+            console.log("GET YOUR PIZZA, YOUVE ERRORED");
+        }
+    };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _productListingDefault.default), {
@@ -27385,29 +27396,26 @@ const Main = ()=>{
                 setProducts: setProducts
             }, void 0, false, {
                 fileName: "src/components/Main.js",
-                lineNumber: 31,
+                lineNumber: 44,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addFormDefault.default), {
-                products: products,
-                setProducts: setProducts
+                onSubmit: postNewProduct
             }, void 0, false, {
                 fileName: "src/components/Main.js",
-                lineNumber: 32,
+                lineNumber: 45,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/Main.js",
-        lineNumber: 30,
+        lineNumber: 43,
         columnNumber: 5
     }, undefined);
 };
 _s(Main, "Of75wLl7oFZkZ1AGF2Dj3fIBhOY=");
 _c = Main;
-exports.default = Main; // fetch('http://example.com/movies.json')
- //   .then((response) => response.json()) // response = await fetch(requestURL) 
- //   .then((data) => console.log(data));  //
+exports.default = Main;
 var _c;
 $RefreshReg$(_c, "Main");
 
@@ -27428,20 +27436,52 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _s = $RefreshSig$();
-const AddForm = ({ setProducts  })=>{
+const AddForm = ({ onSubmit  })=>{
     _s();
     const [visible, setVisible] = (0, _react.useState)("");
-    const handleSubmit = ()=>{
-    // need to save new product to existing list of products
+    const [title, setTitle] = (0, _react.useState)("");
+    const [price, setPrice] = (0, _react.useState)("");
+    const [quantity, setQuantity] = (0, _react.useState)("");
+    const getValidProduct = ({ title , price , quantity  })=>{
+        price = parseFloat(price);
+        quantity = parseInt(quantity, 10); // "" NaN
+        if (title.length === 0) {
+            alert("Title Must Be Provided.");
+            return;
+        } else if (Number.isNaN(price)) {
+            alert("Invalid Price: Please enter a number");
+            return;
+        } else if (Number.isNaN(quantity)) {
+            alert("Please Enter a Valid Number");
+            return;
+        } else return {
+            title,
+            price,
+            quantity
+        };
+    };
+    const resetForm = ()=>{
+        setTitle("");
+        setPrice("");
+        setQuantity("");
+        setVisible("");
+    };
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        const newProduct = getValidProduct({
+            title,
+            price,
+            quantity
+        });
+        if (newProduct) onSubmit(newProduct, resetForm);
     };
     let showForm = (e)=>{
         e.preventDefault();
-        // set visible state to visible
         setVisible("visible");
     };
     let hideForm = (e)=>{
         e.preventDefault();
-        setVisible("");
+        resetForm();
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: `add-form ${visible}`,
@@ -27453,19 +27493,19 @@ const AddForm = ({ setProducts  })=>{
                     children: "Add A Product"
                 }, void 0, false, {
                     fileName: "src/components/AddForm.js",
-                    lineNumber: 23,
+                    lineNumber: 55,
                     columnNumber: 10
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/AddForm.js",
-                lineNumber: 23,
+                lineNumber: 55,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
                 children: "Add Product"
             }, void 0, false, {
                 fileName: "src/components/AddForm.js",
-                lineNumber: 24,
+                lineNumber: 56,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
@@ -27478,22 +27518,23 @@ const AddForm = ({ setProducts  })=>{
                                 children: "Product Name"
                             }, void 0, false, {
                                 fileName: "src/components/AddForm.js",
-                                lineNumber: 29,
+                                lineNumber: 59,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
                                 type: "text",
                                 id: "product-name",
-                                value: ""
+                                value: title,
+                                onChange: (e)=>setTitle(e.target.value)
                             }, void 0, false, {
                                 fileName: "src/components/AddForm.js",
-                                lineNumber: 30,
+                                lineNumber: 60,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/AddForm.js",
-                        lineNumber: 28,
+                        lineNumber: 58,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27504,22 +27545,23 @@ const AddForm = ({ setProducts  })=>{
                                 children: "Price"
                             }, void 0, false, {
                                 fileName: "src/components/AddForm.js",
-                                lineNumber: 34,
+                                lineNumber: 68,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
                                 type: "text",
                                 id: "product-price",
-                                value: ""
+                                value: price,
+                                onChange: (e)=>setPrice(e.target.value)
                             }, void 0, false, {
                                 fileName: "src/components/AddForm.js",
-                                lineNumber: 35,
+                                lineNumber: 69,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/AddForm.js",
-                        lineNumber: 33,
+                        lineNumber: 67,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27530,22 +27572,23 @@ const AddForm = ({ setProducts  })=>{
                                 children: "Quantity"
                             }, void 0, false, {
                                 fileName: "src/components/AddForm.js",
-                                lineNumber: 39,
+                                lineNumber: 77,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
                                 type: "text",
                                 id: "product-quantity",
-                                value: ""
+                                value: quantity,
+                                onChange: (e)=>setQuantity(e.target.value)
                             }, void 0, false, {
                                 fileName: "src/components/AddForm.js",
-                                lineNumber: 40,
+                                lineNumber: 78,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/AddForm.js",
-                        lineNumber: 38,
+                        lineNumber: 76,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27553,10 +27596,11 @@ const AddForm = ({ setProducts  })=>{
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
                                 className: "button",
+                                onClick: handleSubmit,
                                 children: "Add"
                             }, void 0, false, {
                                 fileName: "src/components/AddForm.js",
-                                lineNumber: 44,
+                                lineNumber: 87,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
@@ -27565,29 +27609,29 @@ const AddForm = ({ setProducts  })=>{
                                 children: "Cancel"
                             }, void 0, false, {
                                 fileName: "src/components/AddForm.js",
-                                lineNumber: 45,
+                                lineNumber: 88,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/AddForm.js",
-                        lineNumber: 43,
+                        lineNumber: 86,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/AddForm.js",
-                lineNumber: 27,
+                lineNumber: 57,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/AddForm.js",
-        lineNumber: 22,
+        lineNumber: 54,
         columnNumber: 5
     }, undefined);
 };
-_s(AddForm, "FMiUPu2vg9rYCNuxypFDSTiWhmw=");
+_s(AddForm, "pA9yaFXm/ax0eExc+g1/TRJgt2Y=");
 _c = AddForm;
 exports.default = AddForm; //  Add functionality: do we need to clear data from AddForm if we are cancelling?
 var _c;
@@ -27762,7 +27806,7 @@ $RefreshReg$(_c, "Product");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./EditForm":"42Uhe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./ProductActions.js":"auefg"}],"42Uhe":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./EditForm":"42Uhe","./ProductActions.js":"auefg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"42Uhe":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$db68 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
