@@ -11,6 +11,17 @@ const Product = ({ onDelete, onUpdate, title, quantity, price, _id }) => {
 
   const handleAdd = (e) => {
     e.preventDefault();
+    // if quantity > 0
+      // post request to api/carts with item id
+        // if successful
+          // decrement quantity on product --> update product in products
+          // add item to cart -> update cartitem in cart
+            // if id exists in cart, update item
+            // if id does not exist in cart, add item to cart
+        // if not
+          // alert 'try again later!'
+    // if quantity <= 0
+      // alert 'there are no more items!'
   }
 
   const handleDelete = (e) => {

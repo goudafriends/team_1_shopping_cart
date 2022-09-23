@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import AddForm from "./AddForm";
 import ProductListing from "./ProductListing";
 // import data from '../mockData/data';
