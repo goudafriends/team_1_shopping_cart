@@ -27404,7 +27404,21 @@ const Main = ()=>{
             if (callback) callback();
         } catch (error) {
             console.log(error);
-            console.log("GET YOUR PIZZA, YOUVE ERRORED");
+        }
+    };
+    const deleteProduct = async (id, callback)=>{
+        const options = {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
+        try {
+            const response = await fetch(`http://localhost:5001/api/products/${id}`, options);
+            setProducts(products.filter((product)=>product._id !== id));
+            if (callback) callback();
+        } catch (error) {
+            alert("Sorry, try again.");
         }
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
@@ -27412,29 +27426,32 @@ const Main = ()=>{
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _productListingDefault.default), {
                 products: products,
                 setProducts: setProducts,
-                onUpdate: putProduct
+                onUpdate: putProduct,
+                onDelete: deleteProduct
             }, void 0, false, {
                 fileName: "src/components/Main.js",
-                lineNumber: 69,
+                lineNumber: 89,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addFormDefault.default), {
                 onSubmit: postNewProduct
             }, void 0, false, {
                 fileName: "src/components/Main.js",
-                lineNumber: 70,
+                lineNumber: 90,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/Main.js",
-        lineNumber: 68,
+        lineNumber: 88,
         columnNumber: 5
     }, undefined);
 };
 _s(Main, "Of75wLl7oFZkZ1AGF2Dj3fIBhOY=");
 _c = Main;
-exports.default = Main;
+exports.default = Main; // send the delete request to the api
+ // from products state list filter out the product
+ // that we deleted and update our state to rerender
 var _c;
 $RefreshReg$(_c, "Main");
 
@@ -27722,7 +27739,7 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _product = require("./Product");
 var _productDefault = parcelHelpers.interopDefault(_product);
-const ProductListing = ({ products , onUpdate  })=>{
+const ProductListing = ({ products , onUpdate , onDelete  })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "product-listing",
         children: [
@@ -27736,7 +27753,8 @@ const ProductListing = ({ products , onUpdate  })=>{
             products.map((product)=>{
                 return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _productDefault.default), {
                     ...product,
-                    onUpdate: onUpdate
+                    onUpdate: onUpdate,
+                    onDelete: onDelete
                 }, product._id, false, {
                     fileName: "src/components/ProductListing.js",
                     lineNumber: 10,
@@ -27776,7 +27794,7 @@ var _editFormDefault = parcelHelpers.interopDefault(_editForm);
 var _productActionsJs = require("./ProductActions.js");
 var _productActionsJsDefault = parcelHelpers.interopDefault(_productActionsJs);
 var _s = $RefreshSig$();
-const Product = ({ onUpdate , title , quantity , price , _id  })=>{
+const Product = ({ onDelete , onUpdate , title , quantity , price , _id  })=>{
     _s();
     const [isEdit, setIsEdit] = (0, _react.useState)(false); // determine if edit form needs to be displayed
     const toggleForm = ()=>{
@@ -27784,6 +27802,10 @@ const Product = ({ onUpdate , title , quantity , price , _id  })=>{
     };
     const handleAdd = (e)=>{
         e.preventDefault();
+    };
+    const handleDelete = (e)=>{
+        e.preventDefault();
+        onDelete(_id);
     };
     const handleUpdate = (id, product)=>{
         onUpdate(id, product, toggleForm);
@@ -27797,7 +27819,7 @@ const Product = ({ onUpdate , title , quantity , price , _id  })=>{
                     children: title
                 }, void 0, false, {
                     fileName: "src/components/Product.js",
-                    lineNumber: 23,
+                    lineNumber: 28,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -27808,7 +27830,7 @@ const Product = ({ onUpdate , title , quantity , price , _id  })=>{
                     ]
                 }, void 0, true, {
                     fileName: "src/components/Product.js",
-                    lineNumber: 24,
+                    lineNumber: 29,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -27819,7 +27841,7 @@ const Product = ({ onUpdate , title , quantity , price , _id  })=>{
                     ]
                 }, void 0, true, {
                     fileName: "src/components/Product.js",
-                    lineNumber: 25,
+                    lineNumber: 30,
                     columnNumber: 9
                 }, undefined),
                 isEdit ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _editFormDefault.default), {
@@ -27831,39 +27853,40 @@ const Product = ({ onUpdate , title , quantity , price , _id  })=>{
                     submitUpdate: handleUpdate
                 }, void 0, false, {
                     fileName: "src/components/Product.js",
-                    lineNumber: 27,
+                    lineNumber: 32,
                     columnNumber: 11
                 }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _productActionsJsDefault.default), {
                     handleAdd: handleAdd,
                     handleEdit: toggleForm
                 }, void 0, false, {
                     fileName: "src/components/Product.js",
-                    lineNumber: 28,
+                    lineNumber: 33,
                     columnNumber: 11
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
                     className: "delete-button",
+                    onClick: handleDelete,
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
                         children: "X"
                     }, void 0, false, {
                         fileName: "src/components/Product.js",
-                        lineNumber: 29,
-                        columnNumber: 38
+                        lineNumber: 34,
+                        columnNumber: 61
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/Product.js",
-                    lineNumber: 29,
+                    lineNumber: 34,
                     columnNumber: 9
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/Product.js",
-            lineNumber: 22,
+            lineNumber: 27,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/Product.js",
-        lineNumber: 21,
+        lineNumber: 26,
         columnNumber: 5
     }, undefined);
 };

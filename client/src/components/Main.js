@@ -59,17 +59,42 @@ const Main = () => {
       } 
     } catch (error) {
       console.log(error);
-      console.log("GET YOUR PIZZA, YOUVE ERRORED");
     }
-    
   }
   
+  const deleteProduct = async (id, callback) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5001/api/products/${id}`, options);
+      
+      setProducts(
+        products.filter(product => product._id !== id)
+      )
+      if (callback) {
+        callback();
+      } 
+    } catch(error) {
+      alert('Sorry, try again.');
+    }
+  }
+
   return (
     <main>
-      <ProductListing products={products} setProducts={setProducts} onUpdate={putProduct} />
+      <ProductListing products={products} setProducts={setProducts} onUpdate={putProduct} onDelete={deleteProduct} />
       <AddForm onSubmit={postNewProduct} />
     </main>
    ) 
 }
 
 export default Main;
+
+
+// send the delete request to the api
+// from products state list filter out the product
+// that we deleted and update our state to rerender

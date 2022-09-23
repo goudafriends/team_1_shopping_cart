@@ -2,7 +2,7 @@ import { useState } from "react";
 import EditForm from "./EditForm";
 import ProductActions from "./ProductActions.js"
 
-const Product = ({ onUpdate, title, quantity, price, _id }) => {
+const Product = ({ onDelete, onUpdate, title, quantity, price, _id }) => {
   const [ isEdit, setIsEdit ] = useState(false); // determine if edit form needs to be displayed
 
   const toggleForm = () => {
@@ -11,6 +11,11 @@ const Product = ({ onUpdate, title, quantity, price, _id }) => {
 
   const handleAdd = (e) => {
     e.preventDefault();
+  }
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    onDelete(_id);
   }
 
   const handleUpdate = (id, product) => {
@@ -26,7 +31,7 @@ const Product = ({ onUpdate, title, quantity, price, _id }) => {
         { isEdit ? 
           <EditForm handleCancel={toggleForm} id={_id} title={title} quantity={quantity} price={price} submitUpdate={handleUpdate}/> : 
           <ProductActions handleAdd={handleAdd} handleEdit={toggleForm}/> }
-        <a className="delete-button"><span>X</span></a>
+        <a className="delete-button" onClick={handleDelete}><span>X</span></a>
       </div>
     </div>
   )
