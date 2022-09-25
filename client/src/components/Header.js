@@ -1,8 +1,20 @@
-import { useState, useEffect } from 'react';
 import CartItems from './CartItems';
 
-const Header = ({ cart, setCart }) => {  // possible props to be added?
- 
+const Header = ({ cart, onClick }) => {  // possible props to be added?
+  const disabled = cart.length === 0 ? 'disabled' : '';
+
+  // send post /api/checkout  POST request
+  // setCart items to an empty array 
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (cart.length > 0) {
+      onClick();
+    } else {
+      alert('There are no items to checkout!');
+    }
+  }
+
   return (
       <header>
       <h1>The Shop!</h1>
@@ -15,7 +27,7 @@ const Header = ({ cart, setCart }) => {  // possible props to be added?
         </> :
         <CartItems cart={cart}/>
         }
-        <a className="button checkout disabled">Checkout</a> 
+        <a className={`button checkout ${disabled}`} onClick={handleClick}>Checkout</a> 
       </div>
     </header>
   )

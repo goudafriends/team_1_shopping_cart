@@ -74,9 +74,22 @@ const App = () => {
     }
   }
 
+  const checkoutCart = async () => {
+    const options = {
+      method: 'POST',
+    }
+
+    try {
+      const response = await fetch('http://localhost:5001/api/checkout', options);
+      setCart([]);
+    } catch {
+      alert('Something went wrong :(');
+    }
+  }
+
   return (
     <div id="app">
-      <Header {...{ cart, setCart }} />
+      <Header {...{ cart }} onClick={checkoutCart} />
       <Main {...{ products, setProducts }} onAddToCart={addToCart} />  
     </div>
   );

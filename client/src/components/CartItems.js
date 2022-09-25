@@ -17,7 +17,7 @@ const CartItems = ({ cart }) => {
         return <CartItem key={cartItem._id} {...cartItem} />
       })}
       <tr>
-        <td colspan="3" class="total">Total: ${total}</td>
+        <td colspan="3" class="total">Total: ${total.toFixed(2)}</td>
       </tr>
     </table>
   )  

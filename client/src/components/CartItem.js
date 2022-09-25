@@ -3,7 +3,7 @@ const CartItem = ({title, price, quantity}) => {
     <tr>
       <td>{title}</td>
       <td>{quantity}</td>
-      <td>${price}</td>
+      <td>${price.toFixed(2)}</td>
     </tr>
   )
 }
