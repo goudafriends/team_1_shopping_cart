@@ -7,3 +7,5 @@ const CartItem = ({title, price, quantity}) => {
     </tr>
   )
 }
+
+export default CartItem;

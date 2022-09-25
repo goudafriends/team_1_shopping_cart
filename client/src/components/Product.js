@@ -2,7 +2,7 @@ import { useState } from "react";
 import EditForm from "./EditForm";
 import ProductActions from "./ProductActions.js"
 
-const Product = ({ onDelete, onUpdate, title, quantity, price, _id }) => {
+const Product = ({ onDelete, onUpdate, onAddToCart, title, quantity, price, _id }) => {
   const [ isEdit, setIsEdit ] = useState(false); // determine if edit form needs to be displayed
 
   const toggleForm = () => {
@@ -11,6 +11,12 @@ const Product = ({ onDelete, onUpdate, title, quantity, price, _id }) => {
 
   const handleAdd = (e) => {
     e.preventDefault();
+    if (quantity > 0) {
+      // create onAddToCart - post request, update products and cart
+      onAddToCart(_id);
+    } else {
+      alert("There are no more items!")
+    }
     // if quantity > 0
       // post request to api/carts with item id
         // if successful
@@ -23,6 +29,9 @@ const Product = ({ onDelete, onUpdate, title, quantity, price, _id }) => {
     // if quantity <= 0
       // alert 'there are no more items!'
   }
+
+
+
 
   const handleDelete = (e) => {
     e.preventDefault();

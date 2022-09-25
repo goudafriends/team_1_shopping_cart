@@ -1,24 +1,9 @@
-import { useState, useEffect } from "react";
+
 import AddForm from "./AddForm";
 import ProductListing from "./ProductListing";
 // import data from '../mockData/data';
 
-const Main = () => {
-  const [ products, setProducts ] = useState([]);
-
-  useEffect(() => { // initial loading of list of products
-    const fetchProducts = async () => {      
-      try {
-        const response = await fetch('http://localhost:5001/api/products');
-        setProducts(await response.json());
-      } catch(error) {
-        console.log(error);
-      }
-    }
-
-    fetchProducts();
-  }, []);
-
+const Main = ({ products, setProducts, onAddToCart }) => {
   const postNewProduct = async (newProduct, callback) => {
     const options = {
       method: 'POST', 
@@ -86,7 +71,7 @@ const Main = () => {
 
   return (
     <main>
-      <ProductListing products={products} setProducts={setProducts} onUpdate={putProduct} onDelete={deleteProduct} />
+      <ProductListing products={products} setProducts={setProducts} onUpdate={putProduct} onDelete={deleteProduct} onAddToCart={onAddToCart}/>
       <AddForm onSubmit={postNewProduct} />
     </main>
    ) 

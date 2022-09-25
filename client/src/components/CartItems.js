@@ -4,7 +4,7 @@ const CartItems = ({ cart }) => {
   const total = cart.reduce((sum, item) => {
     sum += (item.price * item.quantity);
     return sum;
-  }, 0)
+  }, 0);
   
   return (
     <table className="cart-items">

@@ -1,23 +1,8 @@
 import { useState, useEffect } from 'react';
 import CartItems from './CartItems';
 
-const Header = () => {  // possible props to be added?
-  const [cart, setCart] = useState([]);
-
-  useEffect(() => { // initial loading of list of cart Items
-    const fetchCart = async () => {      
-      try {
-        const response = await fetch('http://localhost:5001/api/cart');
-        setCart(await response.json());
-      } catch(error) {
-        console.log(error);
-        alert("Something went wrong :(");
-      }
-    }
-
-    fetchCart();
-  }, []);
-  
+const Header = ({ cart, setCart }) => {  // possible props to be added?
+ 
   return (
       <header>
       <h1>The Shop!</h1>
