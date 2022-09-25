@@ -27278,26 +27278,7 @@ const Header = ({ cart , onClick  })=>{
     }, undefined);
 };
 _c = Header;
-exports.default = Header; //// enable button once product has been added
- // .button.checkout {
- //   background: #fff;
- //   color: #07575b;
- // }
- // .button.disabled {
- //   background: #ccc;
- //   color: #fff;
- //   cursor: auto;
- // }
- // .button.checkout {
- //   margin-top: 20px;
- //   float: right;
- // }
- /*
-1. add to cart
-2. disabled button
-
-
-*/ 
+exports.default = Header;
 var _c;
 $RefreshReg$(_c, "Header");
 

@@ -34,27 +34,3 @@ const Header = ({ cart, onClick }) => {  // possible props to be added?
 }
 
 export default Header;
-
-//// enable button once product has been added
-// .button.checkout {
-//   background: #fff;
-//   color: #07575b;
-// }
-
-// .button.disabled {
-//   background: #ccc;
-//   color: #fff;
-//   cursor: auto;
-// }
-
-// .button.checkout {
-//   margin-top: 20px;
-//   float: right;
-// }
-
-/*
-1. add to cart
-2. disabled button
-
-
-*/
