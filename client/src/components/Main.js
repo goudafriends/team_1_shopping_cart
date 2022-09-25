@@ -13,7 +13,7 @@ const Main = ({ products, setProducts, onAddToCart }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:5001/api/products', options);
+      const response = await fetch('/api/products', options);
       setProducts(products.concat(await response.json()));
       if (callback) {
         callback();
@@ -33,7 +33,7 @@ const Main = ({ products, setProducts, onAddToCart }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5001/api/products/${id}`, options);
+      const response = await fetch(`/api/products/${id}`, options);
       const updatedProduct = await response.json();
       setProducts(
         products.map(product => id === product._id ? updatedProduct : product)
@@ -55,7 +55,7 @@ const Main = ({ products, setProducts, onAddToCart }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5001/api/products/${id}`, options);
+      const response = await fetch(`/api/products/${id}`, options);
       
       setProducts(
         products.filter(product => product._id !== id)

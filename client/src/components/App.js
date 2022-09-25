@@ -10,7 +10,7 @@ const App = () => {
   useEffect(() => { // initial loading of list of products
     const fetchProducts = async () => {      
       try {
-        const response = await fetch('http://localhost:5001/api/products');
+        const response = await fetch('/api/products');
         setProducts(await response.json());
       } catch(error) {
         console.log(error);
@@ -23,7 +23,7 @@ const App = () => {
   useEffect(() => { // initial loading of list of cart Items
     const fetchCart = async () => {      
       try {
-        const response = await fetch('http://localhost:5001/api/cart');
+        const response = await fetch('/api/cart');
         setCart(await response.json());
       } catch(error) {
         console.log(error);
@@ -46,7 +46,7 @@ const App = () => {
     console.log(id);
 
     try {
-      const response = await fetch('http://localhost:5001/api/add-to-cart', options );
+      const response = await fetch('/api/add-to-cart', options );
       const responseObj = await response.json();
 
       // adding item to cart:
@@ -80,7 +80,7 @@ const App = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5001/api/checkout', options);
+      const response = await fetch('/api/checkout', options);
       setCart([]);
     } catch {
       alert('Something went wrong :(');

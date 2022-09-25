@@ -27095,7 +27095,7 @@ const App = ()=>{
     (0, _react.useEffect)(()=>{
         const fetchProducts = async ()=>{
             try {
-                const response = await fetch("http://localhost:5001/api/products");
+                const response = await fetch("/api/products");
                 setProducts(await response.json());
             } catch (error) {
                 console.log(error);
@@ -27106,7 +27106,7 @@ const App = ()=>{
     (0, _react.useEffect)(()=>{
         const fetchCart = async ()=>{
             try {
-                const response = await fetch("http://localhost:5001/api/cart");
+                const response = await fetch("/api/cart");
                 setCart(await response.json());
             } catch (error) {
                 console.log(error);
@@ -27127,7 +27127,7 @@ const App = ()=>{
         };
         console.log(id);
         try {
-            const response = await fetch("http://localhost:5001/api/add-to-cart", options);
+            const response = await fetch("/api/add-to-cart", options);
             const responseObj = await response.json();
             // adding item to cart:
             if (cart.filter((item)=>item.productId === id).length === 1) // update item
@@ -27147,7 +27147,7 @@ const App = ()=>{
             method: "POST"
         };
         try {
-            const response = await fetch("http://localhost:5001/api/checkout", options);
+            const response = await fetch("/api/checkout", options);
             setCart([]);
         } catch  {
             alert("Something went wrong :(");
@@ -27191,7 +27191,7 @@ $RefreshReg$(_c, "App");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","./Header":"hsJbF","./Main":"jWapa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react":"21dqq"}],"hsJbF":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./Header":"hsJbF","./Main":"jWapa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"hsJbF":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$bfed = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27287,7 +27287,154 @@ $RefreshReg$(_c, "Header");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./CartItems":"fu7yu"}],"gkKU3":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","./CartItems":"fu7yu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"fu7yu":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$1824 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$1824.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _cartItem = require("./CartItem");
+var _cartItemDefault = parcelHelpers.interopDefault(_cartItem);
+const CartItems = ({ cart  })=>{
+    const total = cart.reduce((sum, item)=>{
+        sum += item.price * item.quantity;
+        return sum;
+    }, 0);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("table", {
+        className: "cart-items",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
+                        children: "Item"
+                    }, void 0, false, {
+                        fileName: "src/components/CartItems.js",
+                        lineNumber: 12,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
+                        children: "Quantity"
+                    }, void 0, false, {
+                        fileName: "src/components/CartItems.js",
+                        lineNumber: 13,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
+                        children: "Price"
+                    }, void 0, false, {
+                        fileName: "src/components/CartItems.js",
+                        lineNumber: 14,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/CartItems.js",
+                lineNumber: 11,
+                columnNumber: 7
+            }, undefined),
+            cart.map((cartItem)=>{
+                return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cartItemDefault.default), {
+                    ...cartItem
+                }, cartItem._id, false, {
+                    fileName: "src/components/CartItems.js",
+                    lineNumber: 17,
+                    columnNumber: 16
+                }, undefined);
+            }),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                    colspan: "3",
+                    class: "total",
+                    children: [
+                        "Total: $",
+                        total.toFixed(2)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/components/CartItems.js",
+                    lineNumber: 20,
+                    columnNumber: 9
+                }, undefined)
+            }, void 0, false, {
+                fileName: "src/components/CartItems.js",
+                lineNumber: 19,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/CartItems.js",
+        lineNumber: 10,
+        columnNumber: 5
+    }, undefined);
+};
+_c = CartItems;
+exports.default = CartItems;
+var _c;
+$RefreshReg$(_c, "CartItems");
+
+  $parcel$ReactRefreshHelpers$1824.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","./CartItem":"h762k","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"h762k":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$48cf = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$48cf.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+const CartItem = ({ title , price , quantity  })=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                children: title
+            }, void 0, false, {
+                fileName: "src/components/CartItem.js",
+                lineNumber: 4,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                children: quantity
+            }, void 0, false, {
+                fileName: "src/components/CartItem.js",
+                lineNumber: 5,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                children: [
+                    "$",
+                    price.toFixed(2)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/CartItem.js",
+                lineNumber: 6,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/CartItem.js",
+        lineNumber: 3,
+        columnNumber: 5
+    }, undefined);
+};
+_c = CartItem;
+exports.default = CartItem;
+var _c;
+$RefreshReg$(_c, "CartItem");
+
+  $parcel$ReactRefreshHelpers$48cf.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -27437,154 +27584,7 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"react-refresh/runtime":"786KC"}],"fu7yu":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$1824 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$1824.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _cartItem = require("./CartItem");
-var _cartItemDefault = parcelHelpers.interopDefault(_cartItem);
-const CartItems = ({ cart  })=>{
-    const total = cart.reduce((sum, item)=>{
-        sum += item.price * item.quantity;
-        return sum;
-    }, 0);
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("table", {
-        className: "cart-items",
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
-                        children: "Item"
-                    }, void 0, false, {
-                        fileName: "src/components/CartItems.js",
-                        lineNumber: 12,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
-                        children: "Quantity"
-                    }, void 0, false, {
-                        fileName: "src/components/CartItems.js",
-                        lineNumber: 13,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
-                        children: "Price"
-                    }, void 0, false, {
-                        fileName: "src/components/CartItems.js",
-                        lineNumber: 14,
-                        columnNumber: 9
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/CartItems.js",
-                lineNumber: 11,
-                columnNumber: 7
-            }, undefined),
-            cart.map((cartItem)=>{
-                return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cartItemDefault.default), {
-                    ...cartItem
-                }, cartItem._id, false, {
-                    fileName: "src/components/CartItems.js",
-                    lineNumber: 17,
-                    columnNumber: 16
-                }, undefined);
-            }),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
-                    colspan: "3",
-                    class: "total",
-                    children: [
-                        "Total: $",
-                        total.toFixed(2)
-                    ]
-                }, void 0, true, {
-                    fileName: "src/components/CartItems.js",
-                    lineNumber: 20,
-                    columnNumber: 9
-                }, undefined)
-            }, void 0, false, {
-                fileName: "src/components/CartItems.js",
-                lineNumber: 19,
-                columnNumber: 7
-            }, undefined)
-        ]
-    }, void 0, true, {
-        fileName: "src/components/CartItems.js",
-        lineNumber: 10,
-        columnNumber: 5
-    }, undefined);
-};
-_c = CartItems;
-exports.default = CartItems;
-var _c;
-$RefreshReg$(_c, "CartItems");
-
-  $parcel$ReactRefreshHelpers$1824.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","./CartItem":"h762k","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"h762k":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$48cf = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$48cf.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-const CartItem = ({ title , price , quantity  })=>{
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
-                children: title
-            }, void 0, false, {
-                fileName: "src/components/CartItem.js",
-                lineNumber: 4,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
-                children: quantity
-            }, void 0, false, {
-                fileName: "src/components/CartItem.js",
-                lineNumber: 5,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
-                children: [
-                    "$",
-                    price.toFixed(2)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/CartItem.js",
-                lineNumber: 6,
-                columnNumber: 7
-            }, undefined)
-        ]
-    }, void 0, true, {
-        fileName: "src/components/CartItem.js",
-        lineNumber: 3,
-        columnNumber: 5
-    }, undefined);
-};
-_c = CartItem;
-exports.default = CartItem;
-var _c;
-$RefreshReg$(_c, "CartItem");
-
-  $parcel$ReactRefreshHelpers$48cf.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jWapa":[function(require,module,exports) {
+},{"react-refresh/runtime":"786KC"}],"jWapa":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$df57 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27609,7 +27609,7 @@ const Main = ({ products , setProducts , onAddToCart  })=>{
             body: JSON.stringify(newProduct)
         };
         try {
-            const response = await fetch("http://localhost:5001/api/products", options);
+            const response = await fetch("/api/products", options);
             setProducts(products.concat(await response.json()));
             if (callback) callback();
         } catch (error) {
@@ -27625,7 +27625,7 @@ const Main = ({ products , setProducts , onAddToCart  })=>{
             body: JSON.stringify(product)
         };
         try {
-            const response = await fetch(`http://localhost:5001/api/products/${id}`, options);
+            const response = await fetch(`/api/products/${id}`, options);
             const updatedProduct = await response.json();
             setProducts(products.map((product)=>id === product._id ? updatedProduct : product));
             if (callback) callback();
@@ -27641,7 +27641,7 @@ const Main = ({ products , setProducts , onAddToCart  })=>{
             }
         };
         try {
-            const response = await fetch(`http://localhost:5001/api/products/${id}`, options);
+            const response = await fetch(`/api/products/${id}`, options);
             setProducts(products.filter((product)=>product._id !== id));
             if (callback) callback();
         } catch (error) {
@@ -27772,7 +27772,7 @@ $RefreshReg$(_c, "AddForm");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./Form":"4Yvuo"}],"4Yvuo":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./Form":"4Yvuo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"4Yvuo":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$a65c = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27954,7 +27954,7 @@ $RefreshReg$(_c, "Form");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react":"21dqq"}],"83Yr4":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"83Yr4":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$e46a = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -28132,7 +28132,7 @@ $RefreshReg$(_c, "Product");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./EditForm":"42Uhe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./ProductActions.js":"auefg"}],"42Uhe":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./EditForm":"42Uhe","./ProductActions.js":"auefg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"42Uhe":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$db68 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -28194,7 +28194,7 @@ $RefreshReg$(_c, "EditForm");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./Form":"4Yvuo"}],"auefg":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","./Form":"4Yvuo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"auefg":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$1dfc = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
