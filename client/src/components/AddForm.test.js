@@ -17,14 +17,18 @@ const setup = () => {
   return {
     ...utils,
     onSubmit,
-    user
+    user,
   }
 }
 
 test("'Add a Product' link is rendered", () => {
   setup();
   const link = screen.getByRole("link", { name: /Add A Product/ });
-  expect(link).toBeInDocument();
+  expect(link).toBeInTheDocument();
+});
+
+test("'Add A Product' form displays when link is clicked", () => {
+  setup();
 });
 
 
@@ -38,5 +42,3 @@ test("'Add a Product' link is rendered", () => {
     - it should display the 'submit' button
 2. If we interact with it, does it do the things we expect?
 */
-
-// test 1: is link is rendered (can i see 'add a product')? Is there a button?

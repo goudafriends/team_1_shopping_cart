@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState } from "react";
 
 const Form = ({ submitter, onCancel, submitButtonLabel, product }) =>  {
   const [ title, setTitle ] = useState(product ? product.title : "");
@@ -46,7 +46,7 @@ const Form = ({ submitter, onCancel, submitButtonLabel, product }) =>  {
   return (
     <form>
       <div className="input-group">
-        <label for="product-name">Product Name</label>
+        <label htmlFor="product-name">Product Name</label>
         <input 
           type="text" 
           id="product-name" 
@@ -55,7 +55,7 @@ const Form = ({ submitter, onCancel, submitButtonLabel, product }) =>  {
       </div>
 
       <div className="input-group">
-        <label for="product-price">Price</label>
+        <label htmlFor="product-price">Price</label>
         <input 
           type="text" 
           id="product-price" 
@@ -64,7 +64,7 @@ const Form = ({ submitter, onCancel, submitButtonLabel, product }) =>  {
       </div>
 
       <div className="input-group">
-        <label for="product-quantity">Quantity</label>
+        <label htmlFor="product-quantity">Quantity</label>
         <input 
           type="text" 
           id="product-quantity" 

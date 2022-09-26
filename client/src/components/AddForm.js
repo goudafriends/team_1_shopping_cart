@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState } from "react";
 import Form from "./Form";
 
 const AddForm = ({ onSubmit }) => {
@@ -25,7 +25,7 @@ const AddForm = ({ onSubmit }) => {
 
   return (
     <div className={`add-form ${visible}`}>
-      <p><a className="button add-product-button" onClick={showForm}>Add A Product</a></p>
+      <p><a href="#" className="button add-product-button" onClick={showForm}>Add A Product</a></p>
       <h3>Add Product</h3>
       <Form submitter={handleSubmit} onCancel={hideForm} submitButtonLabel="Add" />
     </div>
